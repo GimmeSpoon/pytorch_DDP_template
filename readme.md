@@ -24,7 +24,7 @@ Edite below variables for your own use
 
 
 
-Examples below based on simple_ddp
+Examples below are based on simple_ddp
 
 ```python
 nnode = 4
@@ -43,7 +43,8 @@ master_addr = '162.138.23.15'
 master_port = '8888'
 ```
 Above setting describes that 2 Machines have 4 GPUs, and the others have 2 of them.
-In this case you have to set `gpu_per_proc` to 4 in node 0, 1, and 2 in node 2, 3.
+In this case you have to execute scripts with node equal to 0, 1 on machines with 4 GPUs,
+and others with node 2, 3 on machines with 2 GPUs.
 
 ```python
 nnode = 1
