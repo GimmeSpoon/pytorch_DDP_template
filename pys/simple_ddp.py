@@ -20,8 +20,8 @@ master_port = '12345' # Master Port.
 node = 0 # Node ID. 0 is the Master node.
 
 # Define your model, dataset, and some hyperparameters here. Edit below lines.
-nn_model = torch.nn.Module() # Replace your own model to use.
-dataset = Dataset() # Replace your own dataset.
+nn_model = torch.nn.Module() # Replace with your own model to use.
+dataset = Dataset() # Replace with your own dataset.
 
 batch_size = 100 # Replace with your own batch_size# Common configuration values for distributed training.
 
@@ -45,7 +45,7 @@ def dist_main(local_rank:int, world_size:int, _rank0:int)->None:
     dist.init_process_group(backend, init_method, world_size=world_size, rank=global_rank)
 
     sampler = DistributedSampler(dataset, world_size, global_rank)
-    # Replace the arguments as you wish except the sampler if you don't define your own distributed sampler.
+    # Replace the arguments as you wish except the sampler.
     dataloader = DataLoader(dataset, batch_size, sampler=sampler, num_workers=4, pin_memory=True)
     ddp_model = DDP(nn_model.to(local_rank), device_ids=[local_rank])
 
