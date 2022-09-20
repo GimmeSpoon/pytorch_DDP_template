@@ -6,7 +6,7 @@ Simple Template for Pytorch DDP(DistributedDataParallel).
 
 Multiprocessing for DDP is troublesome so I made a template.
 
-You can just edit where I mentioned in the codes.
+You just need to edit where I mentioned in the codes.
 
 Edite below variables for your own use
 
