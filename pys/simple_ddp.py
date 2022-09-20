@@ -7,11 +7,11 @@ import torch
 from torch.utils.data import DataLoader, Dataset
 import os
 
-
+# Common configuration values for distributed training.
 nnode = 2 # Number of nodes(mahcines)
 #gpu_per_node = 4 # Number of GPUs(Processes) per node.
 gpu_per_node = [2, 4] # Or you can make a list for number of GPUs in case that each machine has different num of them.
-backend = 'gloo' # Backend. Read pytorch.DDP document for more details.
+backend = 'nccl' # Backend. Read pytorch.DDP document for more details.
 init_method = 'env://' # Current Value is default. Read pytorch.DDP document for more details.
 master_addr = '127.0.0.1' # Master address. Replace with the IP address of Node 0.
 master_port = '12345' # Master Port.
@@ -20,6 +20,7 @@ master_port = '12345' # Master Port.
 node = 0 # Node ID. 0 is the Master node.
 
 # Define your model, dataset, and some hyperparameters here. Edit below lines.
+# You can define these elsewhere, but just make sure they are defined before DistributedSampler and DDP comes out.
 nn_model = torch.nn.Module() # Replace with your own model to use.
 dataset = Dataset() # Replace with your own dataset.
 
@@ -45,7 +46,7 @@ def dist_main(local_rank:int, world_size:int, _rank0:int)->None:
     dist.init_process_group(backend, init_method, world_size=world_size, rank=global_rank)
 
     sampler = DistributedSampler(dataset, world_size, global_rank)
-    # Replace the arguments as you wish except the sampler.
+    # Replace the arguments as you wish except the sampler unless you need a customized sampler.
     dataloader = DataLoader(dataset, batch_size, sampler=sampler, num_workers=4, pin_memory=True)
     ddp_model = DDP(nn_model.to(local_rank), device_ids=[local_rank])
 
