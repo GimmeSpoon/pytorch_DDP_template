@@ -37,7 +37,7 @@ In this case, 4 Machines have 4 GPUs each using the NCCL backend.
 
 ```python
 nnode = 4
-gpu_per_proc = [4, 4, 2, 2] # Every node has 4 GPUs
+gpu_per_proc = [4, 4, 2, 2] # 2 nodes with 4 GPUs, the others with 2 GPUs
 backend = 'gloo'
 master_addr = '162.138.23.15'
 master_port = '8888'
